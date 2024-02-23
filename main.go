@@ -16,13 +16,11 @@ func main() {
 func getUserInputsData() (string, string, error) {
 	title, err := getUserInputs("Please, enter your title:")
 	if err != nil {
-		// fmt.Println(err)
 		return "", "", err
 	}
 
 	content, err := getUserInputs("Please, enter your content:")
 	if err != nil {
-		// fmt.Println(err)
 		return "", "", err
 	}
 
@@ -34,7 +32,7 @@ func getUserInputs(text string) (string, error) {
 	var value string
 	fmt.Scanln(&value)
 	if value == "" {
-		return "", errors.New("Invalid value")
+		return "", errors.New("Invalid input.")
 	}
 	return value, nil
 }
