@@ -1,38 +1,30 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+
+	"github.com/Med-IDBENOUAKRIM/notes/note"
 )
 
 func main() {
-	title, content, err := getUserInputsData()
+	title, content := getUserInputsData()
+	newNote, err := note.New(title, content)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 }
 
-func getUserInputsData() (string, string, error) {
-	title, err := getUserInputs("Please, enter your title:")
-	if err != nil {
-		return "", "", err
-	}
-
-	content, err := getUserInputs("Please, enter your content:")
-	if err != nil {
-		return "", "", err
-	}
-
-	return title, content, nil
+func getUserInputsData() (string, string) {
+	title := getUserInputs("Please, enter your title:")
+	content := getUserInputs("Please, enter your content:")
+	return title, content
 }
 
-func getUserInputs(text string) (string, error) {
+func getUserInputs(text string) string {
 	fmt.Println(text)
 	var value string
 	fmt.Scanln(&value)
-	if value == "" {
-		return "", errors.New("Invalid input.")
-	}
-	return value, nil
+
+	return value
 }
