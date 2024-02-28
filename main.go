@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/Med-IDBENOUAKRIM/notes/note"
 )
@@ -13,6 +16,8 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	newNote.DisplayNote()
 }
 
 func getUserInputsData() (string, string) {
@@ -23,8 +28,16 @@ func getUserInputsData() (string, string) {
 
 func getUserInputs(text string) string {
 	fmt.Println(text)
-	var value string
-	fmt.Scanln(&value)
+	// var value string
+	// fmt.Scanln(&value)
 
+	reader := bufio.NewReader(os.Stdin)
+	value, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+	value = strings.TrimSuffix(value, "\n")
+	value = strings.TrimSuffix(value, "\r")
 	return value
 }
