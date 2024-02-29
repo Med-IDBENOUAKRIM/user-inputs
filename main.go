@@ -34,8 +34,6 @@ func getUserInputsData() (string, string) {
 
 func getUserInputs(text string) string {
 	fmt.Println(text)
-	// var value string
-	// fmt.Scanln(&value)
 
 	reader := bufio.NewReader(os.Stdin)
 	value, err := reader.ReadString('\n')
