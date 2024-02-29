@@ -19,7 +19,7 @@ func (note Note) DisplayNote() {
 	fmt.Printf("Your note titled: %v, has following content: %v\n\n", note.Title, note.Content)
 }
 
-func (note Note) SaveToFile() error {
+func (note Note) SaveNoteToFile() error {
 	fileName := strings.ReplaceAll(note.Title, " ", "_")
 	fileName = strings.ToLower(fileName) + ".json"
 
@@ -31,7 +31,7 @@ func (note Note) SaveToFile() error {
 
 }
 
-func New(title, content string) (Note, error) {
+func NewNote(title, content string) (Note, error) {
 	if title == "" || content == "" {
 		return Note{}, errors.New("title and content are required")
 	}
