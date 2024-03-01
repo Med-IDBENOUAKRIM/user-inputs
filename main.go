@@ -10,36 +10,46 @@ import (
 	"github.com/Med-IDBENOUAKRIM/notes/todo"
 )
 
+type saver interface {
+	Save() error
+}
+
 func main() {
 	title, content := getNoteData()
-	text := getTodoData()
-
-	newTodo, err := todo.NewTodo(text)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	newTodo.DisplayTodo()
-	err = newTodo.SaveTodoToFile()
-	if err != nil {
-		fmt.Println("Saving the todo has error: ", err)
-		return
-	}
-	fmt.Println("Saving the todo succeeded!!")
-
 	newNote, err := note.NewNote(title, content)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	newNote.DisplayNote()
-	err = newNote.SaveNoteToFile()
+	text := getTodoData()
+	newTodo, err := todo.NewTodo(text)
 	if err != nil {
-		fmt.Println("Saving the note has error: ", err)
+		fmt.Println(err)
 		return
 	}
+	newTodo.DisplayTodo()
+	newNote.DisplayNote()
+
+	err = saveData(newTodo)
+	if err != nil {
+		return
+	}
+
+	err = saveData(newNote)
+	if err != nil {
+		return
+	}
+}
+
+func saveData(data saver) error {
+	err := data.Save()
+	if err != nil {
+		fmt.Println("Saving the note has error: ", err)
+		return err
+	}
 	fmt.Println("Saving the note succeeded!!")
+	return nil
 }
 
 func getTodoData() string {
@@ -47,6 +57,7 @@ func getTodoData() string {
 
 	return text
 }
+
 func getNoteData() (string, string) {
 	title := getUserInputs("Please, enter your title:")
 	content := getUserInputs("Please, enter your content:")

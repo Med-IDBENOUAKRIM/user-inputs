@@ -19,7 +19,7 @@ func (note Note) DisplayNote() {
 	fmt.Printf("Your note titled: %v, has following content: %v\n\n", note.Title, note.Content)
 }
 
-func (note Note) SaveNoteToFile() error {
+func (note Note) Save() error {
 	fileName := strings.ReplaceAll(note.Title, " ", "_")
 	fileName = strings.ToLower(fileName) + ".json"
 
